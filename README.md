@@ -15,14 +15,14 @@ execute more quickly if the `sbt` shell is used instead.
 
 1.  OPTIONAL: create a virtual environment to install pre-commit in e.g.
     ```shell
-    conda create -n scala-sbt-template python=3.9 
+    python -m venv .venv 
     ```
     Note: it's recommended to create a new environment for each project that uses `pre-commit` so that the configurations
     do not need to be initialised when switching projects.
     
 2.  OPTIONAL: activate the virtual environment e.g.
     ```shell
-    conda activate scala-sbt-template
+    . .venv/bin/activate
     ```
 
 3.  Install `pre-commit`
@@ -99,6 +99,27 @@ sbt clean Docker/publishLocal
 
 ### Execute
 
+#### Code
+
 ```shell
 sbt clean compile "run arg1 arg2 arg3"
 ```
+
+#### Artifact
+
+1. Build the fat-JAR
+
+2. Make the JAR executable:
+    ```shell
+    chmod +x core/target/scala-sbt-template-core.jar
+    ```
+ 
+3. Run the JAR:
+    ```shell
+    java -jar core/target/scala-sbt-template-core.jar "arg1" "arg2" "arg3"
+    ```
+    This should result in the following output:
+    ```shell
+    Hello, world with [arg1, arg2, arg3]
+    add(1, 2) = 3
+    ```
