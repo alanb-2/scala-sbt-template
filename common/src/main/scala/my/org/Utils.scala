@@ -1,4 +1,4 @@
-package org.my
+package my.org
 
 object Utils {
 
