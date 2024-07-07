@@ -1,16 +1,26 @@
-import Dependencies._
-import sbtassembly.AssemblyPlugin.autoImport.assembly
+import Dependencies.*
 
 name := "scala-sbt-template"
-ThisBuild / crossPaths := false
 ThisBuild / organization := "my.org"
-ThisBuild / scalacOptions += ""
-ThisBuild / scalaVersion := "2.13.5"
-ThisBuild / version := "0.1"
-
+ThisBuild / crossPaths := false
+ThisBuild / javacOptions ++= Seq(
+  "-source",
+  "21",
+  "-target",
+  "21"
+)
 ThisBuild / resolvers ++= Seq(
   Resolver.mavenLocal
 )
+ThisBuild / scalacOptions ++= Seq(
+  "-deprecation",
+  "-feature",
+  "-unchecked",
+  "-Wunused:all",
+  "-Xfatal-warnings"
+)
+ThisBuild / scalaVersion := "3.3.3"
+ThisBuild / version := git.gitHeadCommit.value.get.take(7)
 
 lazy val commonSettings = Seq(
   libraryDependencies ++= rootDependencies,
@@ -22,7 +32,7 @@ lazy val root = (project in file("."))
     common,
     core
   )
-  .enablePlugins(JavaAppPackaging)
+  .enablePlugins(JavaServerAppPackaging)
   .settings(commonSettings)
 
 lazy val common = (project in file("common"))
@@ -34,12 +44,12 @@ lazy val common = (project in file("common"))
 
 lazy val core = (project in file("core"))
   .dependsOn(common)
-  .enablePlugins(JavaAppPackaging)
+  .enablePlugins(JavaServerAppPackaging)
   .settings(
     commonSettings,
     name := "core",
     assembly / mainClass := Some(s"${organization.value}.Main"),
-    assembly / assemblyJarName := "scala-sbt-template-core.jar",
+    assembly / assemblyJarName := s"${name.value}-${version.value}.jar",
     assembly / test := {}
   )
 
@@ -50,3 +60,5 @@ assembly / assemblyMergeStrategy := {
 }
 
 publishMavenStyle := true
+
+coverageDataDir := target.value / "reports"

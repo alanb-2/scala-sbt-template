@@ -1,11 +1,14 @@
-# generic
+# Sbt
+project/project
 target
 
-# editor
+# IntelliJ
 .idea
 .bsp
 *.iml
 
-# virtual environments
-.venv
-venv
+# Visual Studio Code
+.bloop
+.metals
+.vscode
+metals.sbt
