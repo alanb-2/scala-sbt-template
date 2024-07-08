@@ -34,9 +34,18 @@ sbt clean test
 
 ## Coverage
 
-```shell
-sbt jacoco
-```
+1. Generate coverage data for each sub-module's target directory
+    ```shell
+    sbt coverage test
+    ```
+2. Generate sub-module coverage reports
+    ```shell
+    sbt coverageReport
+    ```
+3. Aggregate coverage reports
+    ```shell
+    sbt coverageAggregate
+    ```
 
 ## Package
 

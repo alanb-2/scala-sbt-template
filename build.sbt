@@ -2,6 +2,7 @@ import Dependencies.*
 
 name := "scala-sbt-template"
 ThisBuild / organization := "my.org"
+ThisBuild / coverageEnabled := true
 ThisBuild / crossPaths := false
 ThisBuild / javacOptions ++= Seq(
   "-source",
@@ -60,5 +61,3 @@ assembly / assemblyMergeStrategy := {
 }
 
 publishMavenStyle := true
-
-coverageDataDir := target.value / "reports"
